@@ -1,0 +1,66 @@
+extends layout
+
+block pagecontent
+  div.row
+    div.span1
+    div.span2
+      div(data-spy="affix", data-offset-top="60")
+        a(href="#HowToUse") How To Use
+        br
+        a(href="#Examples") Examples
+        br
+        a(href="#AboutIMDB") About IMDB
+        br
+        a(href="#Ratings") Ratings
+        br
+        a(href="#Votes") Votes
+        br
+        a(href="#Directors") Directors
+    div.span8
+      h2#HowToUse How To Use
+      p.
+        This site is a fun way to interact with the movie ratings and director information from the IMDB.
+        If you're trying to find out the best director, or if one director is better than another, can you use
+        this data to answer that question? Perhaps.
+      p.
+        It's easy to ask analytical questions about the data, a little harder to justify calling the results
+        a list of "the best" or "better than. As long as we don't take the results too seriously, we can use
+        this analysis to find out some interesting relationships about some of our favorite directors and their
+        films and to discover some names and movies that we've never heard of before.
+      h2#Examples Examples
+      p.
+        Let's start with <a href="http://bestdirectors.netrc.com/?minNumVotes=10&minNumFilms=10"> min num votes set to 10 and min num films set to 10 </a>. There
+        are a lot of people.
+        One cogent suggest for best director would be more than 10 movies with a substantial following, lets say more than 500 votes. After all, a great director
+        may only make a modest number of films.
+        Or you might say that a great director will have made a lot of good-to-great movies. How many is a lot? Tring 30 movies with 500.
+        Let's look for some people that make lots and lots of movies, 100 votes and 50 movies.
+      h2#AboutIMDB About IMDB
+      p.
+        The <a href="http://imdb.org">Internet Movie Database</a> is a brilliant online resource for movie fans.
+        Signigicantly, it owes its vast cache of information to volunteers who add information.
+        The data is vetted, and perhaps surprisingly, is the most accurate and widespread source of information about movies.
+        Note this that and the other.
+        There are NNNN total movies tracked by the IMDB.
+      h2#Ratings About Ratings
+      p. 
+        In addition to cast lists and production credits, the database also allows you to enter your personal rating for
+        each film using a scale of 1 - horrible! - to 10 - perfection itself.
+        IMDB keeps track of the number of votes.
+        Note that of the NNNN movies, only YYYY (or xx%) have any votes at all.
+        Taking each movies rating (excluding movies with no votes), shows an average rating of...
+        A graph of the number of movies for each rating. This shows that highly rated movies are quite rare, only X% over 8.
+        Perhaps this is as it should be.
+      h2#Votes About Number of Votes
+      p.
+        IMDB also tracks the number of votes for each movie that has been rated. Looking at the number of votes cast versus the
+        rating shows a trend towards "better" movies getting more votes.
+      p.
+        asdfaf
+      h2#Directors About Directors and Number of Films
+      p.
+        There are YYY total directors in the database. That works out to an average of Y movies per director.
+        The distribution of number of movies vs. average rating.
+        
+        
+        

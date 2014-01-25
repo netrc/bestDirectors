@@ -20,6 +20,7 @@ var getRestDirectors = function(req, res) {
 
 app.get('/', doMain);
 app.get('/Directors/', getRestDirectors);
+app.get('/HowToUse', function(req,res) { res.render('howToUse.jade');});
 
 dr.initData( function() {
     app.listen(process.env.PORT);
