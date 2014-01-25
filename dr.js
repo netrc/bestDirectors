@@ -33,7 +33,7 @@ var dogetBest = function(minNumVotes, minNumMovies) {
     return { ans:ans, totalN:totalN, totalAvg: (totalR/totalN).toFixed(2), totalD: ans.length, queryMS:(ms4-ms1) };
 };
 
-exports.getBest = function(minNumVotes, minNumMovies) {
+exports.getBest = function(minNumVotes, minNumMovies, cb) {
     if (drdata.length === 0) {
         console.log("getting drdata");
         request('http://netrc.com/drFoundSorted.json', function (error, response, body) {
@@ -43,13 +43,13 @@ exports.getBest = function(minNumVotes, minNumMovies) {
             //console.log(" body(-100-end): "+response.body.substring(response.body.length-100));
             if (!error && response.statusCode == 200) {
                 drdata = JSON.parse(response.body);
-                console.log("drdata parsed length: " + drdata.length + " .. " + (drdata.length==206194)?"ok":"WRONG!");
-                return dogetBest(minNumVotes, minNumMovies);
+                console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
+                return cb(dogetBest(minNumVotes, minNumMovies));
             } else {
                 console.log("bad status:" + response.statusCode + "error: "+error);
-                return ([{dn:"none", durl:"", avgR:"", numR:""}]);
+                return cb(([{dn:"none", durl:"", avgR:"", numR:""}]));
             }
         });
     } else
-        return dogetBest(minNumVotes, minNumMovies);
+        return cb(dogetBest(minNumVotes, minNumMovies));
 };

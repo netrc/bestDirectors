@@ -15,8 +15,9 @@ var doMain = function(req, res) {
 
 var getRestDirectors = function(req, res) {
     console.log("getRestDirectors: "+req.param('minNumVotes')+"  "+req.param('minNumMovies'));
-    var r = dr.getBest(req.param('minNumVotes'),req.param('minNumMovies'));
-    res.send( JSON.stringify(r) );
+    dr.getBest(req.param('minNumVotes'),req.param('minNumMovies'), function cb(r) {
+        res.send( JSON.stringify(r) );
+    });
 };
 
 app.get('/', doMain);
