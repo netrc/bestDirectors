@@ -1,7 +1,7 @@
 console.log('starting');
 var express = require('express');
 require('jade');
-var dr = require('./r1000');
+var dr = require('./dr');
 
 var app = express();
 
