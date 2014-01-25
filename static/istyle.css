@@ -1,7 +1,5 @@
 body {
-  background-image:url('grey_wash_wall.png');
-  background-image:url('http://images2.layoutsparks.com/1/58881/grey-black-reel-film.gif');
-  background-image:url('http://images2.layoutsparks.com/1/189125/film-white-reel-image-31000.jpg');
+  background-color: #CCCCCC;
 }
 
 .composerName {
