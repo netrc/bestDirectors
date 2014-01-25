@@ -1,15 +1,15 @@
 
 var dr = require('./dr');
 
-var ans;
-
-var testcb = function(r) {
-    console.log("a l: " + r.ans.length);
-    console.log("a ms:" + r.queryMS);
+var testGetBest = function(m,n) {
+    var r = dr.getBest(100,100);
+    console.log("a l: " + r.ans.length + "   ms:" + r.queryMS);
 };
     
-dr.getBest(100,100, testcb);
-dr.getBest(100,100, testcb);
-dr.getBest(1000,10, testcb);
-dr.getBest(1000,10, testcb);
+dr.initData( function() {
+    testGetBest(100,100);
+    testGetBest(100,100);
+    testGetBest(1000,10);
+    testGetBest(1000,10);
+});
 

@@ -15,13 +15,13 @@ var doMain = function(req, res) {
 
 var getRestDirectors = function(req, res) {
     console.log("getRestDirectors: "+req.param('minNumVotes')+"  "+req.param('minNumMovies'));
-    dr.getBest(req.param('minNumVotes'),req.param('minNumMovies'), function cb(r) {
-        res.send( JSON.stringify(r) );
-    });
+    res.send( JSON.stringify( dr.getBest(req.param('minNumVotes'),req.param('minNumMovies')) ) );
 };
 
 app.get('/', doMain);
 app.get('/Directors/', getRestDirectors);
 
-app.listen(process.env.PORT);
-console.log('listening on '+ process.env.PORT);
+dr.initData( function() {
+    app.listen(process.env.PORT);
+    console.log('listening on '+ process.env.PORT);
+});

@@ -1,9 +1,9 @@
 var request = require('request');
 
-var drdata = [];
+var drdata = [];        // the whole db is read and cached in main memory; about 14MB
 var ms1,ms2,ms3,ms4;
 
-var dogetBest = function(minNumVotes, minNumMovies) {
+exports.getBest = function(minNumVotes, minNumMovies) {
     ms1 = Date.now();
     var r = {};
     // collect all the movies and sum all the ratings for each director
@@ -33,23 +33,21 @@ var dogetBest = function(minNumVotes, minNumMovies) {
     return { ans:ans, totalN:totalN, totalAvg: (totalR/totalN).toFixed(2), totalD: ans.length, queryMS:(ms4-ms1) };
 };
 
-exports.getBest = function(minNumVotes, minNumMovies, cb) {
-    if (drdata.length === 0) {
-        console.log("getting drdata");
-        request('http://netrc.com/drFoundSorted.json', function (error, response, body) {
-            //console.log("got drdata status: "+response.statusCode);
-            //console.log(" body.length: "+response.body.length);
-            //console.log(" body(0-100): "+response.body.substring(0,100));
-            //console.log(" body(-100-end): "+response.body.substring(response.body.length-100));
-            if (!error && response.statusCode == 200) {
-                drdata = JSON.parse(response.body);
-                console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
-                return cb(dogetBest(minNumVotes, minNumMovies));
-            } else {
-                console.log("bad status:" + response.statusCode + "error: "+error);
-                return cb(([{dn:"none", durl:"", avgR:"", numR:""}]));
-            }
-        });
-    } else
-        return cb(dogetBest(minNumVotes, minNumMovies));
+
+exports.initData = function( cb ) {
+    console.log("doing init");
+    request('http://netrc.com/drFoundSorted.json', function (error, response, body) {
+        //console.log("got drdata status: "+response.statusCode);
+        //console.log(" body.length: "+response.body.length);
+        //console.log(" body(0-100): "+response.body.substring(0,100));
+        //console.log(" body(-100-end): "+response.body.substring(response.body.length-100));
+        if (!error && response.statusCode == 200) {
+            drdata = JSON.parse(response.body);
+            console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
+            return cb();
+        } else {
+            console.log("bad status:" + response.statusCode + "error: "+error);
+            return; // no callback // this will exit
+        }
+    });
 };
