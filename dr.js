@@ -1,6 +1,7 @@
 var request = require('request');
 
 var drdata = [];        // the whole db is read and cached in main memory; about 14MB
+var dfn = {};           // pre-calc total films for each director
 var ms1,ms2,ms3,ms4;
 
 exports.getBest = function(minNumVotes, minNumMovies) {
@@ -22,7 +23,7 @@ exports.getBest = function(minNumVotes, minNumMovies) {
         if (r[k].numR < minNumMovies) continue; // skip if not enough movies
         r[k].avgR = (r[k].totalR / r[k].numR).toFixed(2);
         totalN += r[k].numR; totalR += r[k].totalR;
-        r[k].dn = k;
+        r[k].dn = k + " (" + dfn[k] + ")";
         r[k].durl = "http://imdb.com/find?s=nm&q="+k;
         ans.push(r[k]);
     }
@@ -44,6 +45,12 @@ exports.initData = function( cb ) {
         if (!error && response.statusCode == 200) {
             drdata = JSON.parse(response.body);
             console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
+            drdata.forEach(function(x){
+                var n = x.dN;
+                if (! dfn[n]) { dfn[n]=0; }
+                dfn[n]++;
+            });
+            console.log("finished pre-calc");
             return cb();
         } else {
             console.log("bad status:" + response.statusCode + "error: "+error);

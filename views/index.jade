@@ -28,8 +28,8 @@ block pagecontent
         option(value=1000000) 1,000,000
         option(value=2000000) 2,000,000
     div.span3
-      input(data-bind="value: minNumMovies", tabindex="2")
-      //div#minNumMovies
+      form(data-bind="submit: getBestPress")
+        input(data-bind="value: minNumMovies", tabindex="2")
       // http://jqueryui.com/slider/#default
     div.span1
       button(data-bind="click: getBestPress", tabindex="3") Action!
@@ -42,15 +42,15 @@ block pagecontent
       table(width="85%")
         thead
           tr
-            th(width="60%") Director
-            th(width="20%") # Movies
-            th(width="20%") Rating
+            th(width="50%") Director
+            th(width="25%") # Movies
+            th(width="25%") Rating
         tbody(data-bind="foreach: directorNames")
           tr
-            td
+            td(align='center')
               a(data-bind="text:dn, attr: {href: durl}",  target="_blank")
-            td(data-bind="text: numR")
-            td(data-bind="text: avgR")
+            td(data-bind="text: numR",align='center')
+            td(data-bind="text: avgR",align='center')
 
 block pagescript
   script.
