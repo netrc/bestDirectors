@@ -6,7 +6,7 @@ html
     title BestDirectors#{title}
     meta(name="google-site-verification", content="TW-sW3lVdD8vhX5tsKlClvznCpgTs-pDgWRsYSgIaP4")
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(rel='canonical', href='http://vlcb.netrc.com#{title}')
+    link(rel='canonical', href='http://bestdirectors.netrc.com/')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css')
     link(href='https://fonts.googleapis.com/css?family=Eagle+Lake', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/istyle.css', type='text/css')
@@ -58,4 +58,13 @@ html
 
 
     block pagescript
+    script(type="text/javascript").
+      window.___gcfg = {
+        lang: 'en-US'
+      };
 
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
