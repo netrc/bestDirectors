@@ -8,3 +8,7 @@ body {
 .recordingName {
   cursor:pointer;
 }
+
+select {
+    direction: rtl;
+}
