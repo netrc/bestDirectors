@@ -12,3 +12,7 @@ body {
 select {
     direction: rtl;
 }
+
+th, td {
+    text-align: center;
+}
