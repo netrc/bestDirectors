@@ -4,11 +4,12 @@ block pagecontent
   div.container
     div.row
       div.col-md-1
+        span &nbsp;
       div.col-md-8
         div.row
-          div.col-md-2
+          div.col-md-3
             label Minimum # of votes
-          div.col-md-2
+          div.col-md-3
             label Minumum # of movies
         div.row
           div.col-md-3
@@ -28,16 +29,17 @@ block pagecontent
               option(value=100000) 100,000
               option(value=500000) 500,000
               option(value=1000000) 1,000,000
-          div.col-md-2
+          div.col-md-3
             form(data-bind="submit: getBestPress")
               input(data-bind="value: minNumMovies", tabindex="2")
               // http://jqueryui.com/slider/#default
           div.col-md-1
+          div.col-md-1
             button(data-bind="click: getBestPress", tabindex="3") Action!
         div.row
           div.col-md-8
+            br
             p(data-bind="text: summary")
-            div.row
             table(width="85%")
               thead
                 tr
