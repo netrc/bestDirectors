@@ -1,4 +1,5 @@
 var request = require('request');
+var iconv = require('iconv-lite');
 
 var drdata = [];        // the whole db is read and cached in main memory; about 14MB
 var dfn = {};           // pre-calc total films for each director
@@ -37,13 +38,17 @@ exports.getBest = function(minNumVotes, minNumMovies) {
 
 exports.initData = function( cb ) {
     console.log("doing init");
-    request('http://netrc.com/drFoundSorted.json', function (error, response, body) {
+    var options = {
+      url: 'http://netrc.com/drFoundSorted.json',
+      encoding: null    // set to get raw buffer (node can't do ISO-8859-1 yet)
+    };
+    request(options, function (error, response, body) {
         //console.log("got drdata status: "+response.statusCode);
         //console.log(" body.length: "+response.body.length);
         //console.log(" body(0-100): "+response.body.substring(0,100));
         //console.log(" body(-100-end): "+response.body.substring(response.body.length-100));
         if (!error && response.statusCode == 200) {
-            drdata = JSON.parse(response.body);
+            drdata = JSON.parse( iconv.decode(response.body, 'ISO-8859-1') );
             console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
             drdata.forEach(function(x){
                 var n = x.dN;
