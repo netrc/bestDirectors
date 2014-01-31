@@ -38,3 +38,9 @@ th, td {
 td a:link {
     color: #0000A0;
 }
+.summary.a:link {
+    color: #0000A0;
+}
+.summary {
+    font-size: 14pt;
+}
