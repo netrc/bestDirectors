@@ -62,7 +62,7 @@ block pagescript
       var self = this;
       self.composerNames = ko.observableArray([ {name:"retrieving..."}]);
       self.minNumVotes = ko.observable(2000);
-      self.minNumMovies = ko.observable(20);
+      self.minNumMovies = ko.observable(10);
       self.directorNames = ko.observableArray();
       self.summary = ko.observable("Who's the best movie director? Or better, which director has made the most films with the highest ratings? Let's ask the <a href='http://imdb.org'> Internet Movie Database </a> to find out the answer. Select a minumum number of votes and a minimum number of movies to see a listing of directors and the average rating of their films. Press the Action! button for the answer.");
       self.firstTimeHide = ko.observable(false); // hide the table on first display
