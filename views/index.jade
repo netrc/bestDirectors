@@ -14,7 +14,6 @@ block pagecontent
         div.row
           div.col-md-3
             select.form-control(data-bind="value: minNumVotes", tabindex="1")
-              option 0
               option 5
               option 10
               option 25
@@ -72,11 +71,11 @@ block pagecontent
       
 block pagescript
   script.
-    var viewModel = function(){
+    var viewModel = function(o){
       var self = this;
       self.composerNames = ko.observableArray([ {name:"retrieving..."}]);
-      self.minNumVotes = ko.observable(2000);
-      self.minNumMovies = ko.observable(10);
+      self.minNumVotes = ko.observable( (o.uminNumVotes===0) ? 2000 : o.uminNumVotes );
+      self.minNumMovies = ko.observable( (o.uminNumMovies===0) ? 10 : o.uminNumMovies );
       self.directorNames = ko.observableArray();
       self.summary = ko.observable("Who's the best movie director? Or better, which director has made the most films with the highest ratings? Let's ask the <a href='http://imdb.org'> Internet Movie Database </a> to find out the answer. Select a minumum number of votes and a minimum number of movies to see a listing of directors and the average rating of their films. Press the Action! button for the answer.");
       self.firstTimeHide = ko.observable(false); // hide the table on first display
@@ -91,7 +90,8 @@ block pagescript
       self.nextUrl = ko.observable("");
       // in the footer; the milliseconds
       self.finaltext = ko.observable("");
-      self.getBestPress = function(item) {
+      // auto run if the URL has values // see below
+      self.getBestPress = function() {
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
           self.firstTimeHide(true);
           self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:""}]);
@@ -131,9 +131,21 @@ block pagescript
             }
           });
       };
+      // auto run if the URL has values
+      if (o.uminNumVotes > 0) {
+        self.getBestPress();
+      }
+    };
+    var getParam = function(name) {
+      var wurl = window.location.href;
+      var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(wurl);
+      if (!results) { 
+        return 0; 
+      }
+      return results[1] || 0;
     };
     $(document).ready(function(){
-      ko.applyBindings(new viewModel());
+      console.log("getP(minNumVotes): " + getParam('minNumVotes'));
+      ko.applyBindings(new viewModel( {uminNumVotes:getParam('minNumVotes'),uminNumMovies:getParam('minNumMovies')} ));
       //$( "#minNumMovies" ).slider({ range: "min", value: 5, min: 0, max: 100, slide: function( event, ui ) { console.log("minNumMovies: "+ui.value); } });
-      //$('.carousel').carousel();
     });
