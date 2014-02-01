@@ -14,8 +14,8 @@ var doMain = function(req, res) {
 };
 
 var getRestDirectors = function(req, res) {
-    console.log("getRestDirectors: "+req.param('minNumVotes')+"  "+req.param('minNumMovies'));
-    res.send( JSON.stringify( dr.getBest(req.param('minNumVotes'),req.param('minNumMovies')) ) );
+    console.log("getRestDirectors: "+req.param('minNumVotes')+"  "+req.param('minNumMovies') + " from:" + req.param('start')+"  end:" + req.param('end'));
+    res.send( JSON.stringify( dr.getBest(req.param('minNumVotes'),req.param('minNumMovies'), req.param('start'), req.param('end')) ) );
 };
 
 app.get('/', doMain);

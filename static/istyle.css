@@ -44,3 +44,7 @@ td a:link {
 .summary {
     font-size: 14pt;
 }
+.pager {
+    font-style: italic;
+    font-size: 12pt;
+}

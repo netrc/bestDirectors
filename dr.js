@@ -4,8 +4,10 @@ var iconv = require('iconv-lite');
 var drdata = [];        // the whole db is read and cached in main memory; about 14MB
 var dfn = {};           // pre-calc total films for each director
 var ms1,ms2,ms3,ms4;
+var nPerPage = 100;
 
-exports.getBest = function(minNumVotes, minNumMovies) {
+exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
+    console.log("enter: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
     ms1 = Date.now();
     var r = {};
     // collect all the movies and sum all the ratings for each director
@@ -31,8 +33,36 @@ exports.getBest = function(minNumVotes, minNumMovies) {
     ms3 = Date.now();
     ans.sort(function(a,b){ return (b.avgR - a.avgR)});
     ms4 = Date.now();
-    console.log("dogetbest total: " + (ms4-ms1) + "  votes: " + (ms2-ms1) + " avgr: "+(ms3-ms2) +" sort: "+(ms4-ms3));
-    return { ans:ans, totalN:totalN, totalAvg: (totalR/totalN).toFixed(2), totalD: ans.length, queryMS:(ms4-ms1) };
+    console.log("dogetbest ms total: " + (ms4-ms1) + "  votes: " + (ms2-ms1) + " avgr: "+(ms3-ms2) +" sort: "+(ms4-ms3));
+
+    if (! thisStart) thisStart = 0;
+    if (! thisEnd) thisEnd = (ans.length>nPerPage) ? (nPerPage-1) : ans.length;
+    console.log("mid: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
+    var pages = {};
+    pages.prevUrl="", pages.prevUrlText="";
+    pages.nextUrl="", pages.nextUrlText="";
+    pages.showNext = false, pages.showPrev = false; pages.showThis = false;
+    pages.thisPageText="";
+    if (ans.length > nPerPage) {
+        pages.showThis = true;
+        pages.thisPageText= thisStart + " - " + thisEnd;
+        var nextStart = thisEnd*1 + 1;
+        if (nextStart<ans.length) { // no need to go further
+          var nextEnd = thisEnd*1 + nPerPage*1;
+          if (nextEnd > ans.length) nextEnd = ans.length;
+          pages.showNext = true;
+          pages.nextUrlText = nextStart + " - " + nextEnd;
+          pages.nextUrl="&start=" + nextStart + "&end=" + nextEnd;
+        }
+    }
+    if (thisStart > 1) {
+        var prevStart = thisStart - nPerPage;
+        var prevEnd = thisStart - 1;
+        pages.showPrev = true;
+        pages.prevUrlText = prevStart + " - " + prevEnd;
+        pages.prevUrl="&start=" + prevStart + "&end=" + prevEnd;
+    }
+    return { pages:pages, ans:ans.slice(thisStart, (thisEnd*1+1)), totalN:totalN, totalAvg: (totalR/totalN).toFixed(2), totalD: ans.length, queryMS:(ms4-ms1) };
 };
 
 

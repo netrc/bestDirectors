@@ -53,6 +53,20 @@ block pagecontent
                     a(data-bind="text:dn, attr: {href: durl}",  target="_blank")
                   td(data-bind="text: numR")
                   td(data-bind="text: avgR")
+        div.row
+          div.col-md-1
+          div.col-md-2
+            div(data-bind="visible: showPrev")
+              button.btn.btn-primary.pager(data-bind="click: getBestPrev")
+                span(data-bind= "text: prevUrlText")
+          div.col-md-2
+            div
+              span.pager(data-bind="visible: showThis, text: thisPageText")
+          div.col-md-2
+            div(data-bind="visible: showNext")
+              button.btn.btn-primary.pager(data-bind="click: getBestNext")
+                span(data-bind= "text: nextUrlText")
+          div.col-md-5
       div.col-md-3
         include ads
       
@@ -66,24 +80,60 @@ block pagescript
       self.directorNames = ko.observableArray();
       self.summary = ko.observable("Who's the best movie director? Or better, which director has made the most films with the highest ratings? Let's ask the <a href='http://imdb.org'> Internet Movie Database </a> to find out the answer. Select a minumum number of votes and a minimum number of movies to see a listing of directors and the average rating of their films. Press the Action! button for the answer.");
       self.firstTimeHide = ko.observable(false); // hide the table on first display
+      //pagination stuff
+      self.showPrev = ko.observable(false);
+      self.showThis = ko.observable(false);
+      self.showNext = ko.observable(false);
+      self.prevUrlText = ko.observable("");
+      self.thisPageText = ko.observable("");
+      self.nextUrlText = ko.observable("");
+      self.prevUrl = ko.observable("");
+      self.nextUrl = ko.observable("");
+      // in the footer; the milliseconds
       self.finaltext = ko.observable("");
       self.getBestPress = function(item) {
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
           self.firstTimeHide(true);
           self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:""}]);
+          self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies());
+      };
+      self.getBestNext = function() {
+        self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies() + self.nextUrl());
+      };
+      self.getBestPrev = function() {
+        self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies() + self.prevUrl());
+      };
+      self.getBest = function(url) {
+          console.log("getBest: " + url);
           self.summary("");
           self.finaltext("");
-          $.get('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies(), {}, function(s,tstatus,jxhr) { 
+          self.showPrev(false); self.showThis(false); self.showNext(false);
+          self.prevUrlText(""); self.thisPageText(""); self.nextUrlText("");
+          $.get(url, {}, function(s,tstatus,jxhr) { 
             var d = JSON.parse(s);
             //console.log("getBestPress d = " + d);
             self.summary( d.totalD + " directors made the list!<br>Total number of films: "+ d.totalN+ "  with an average rating of: " + d.totalAvg);
             self.finaltext(d.queryMS+'ms');
             self.directorNames(d.ans);
+            if (d.pages.showThis) {
+                self.showThis(d.pages.showThis);
+                self.thisPageText(d.pages.thisPageText);
+            }
+            if (d.pages.showPrev) {
+                self.showPrev(d.pages.showPrev);
+                self.prevUrlText(d.pages.prevUrlText);
+                self.prevUrl(d.pages.prevUrl);
+            }
+            if (d.pages.showNext) {
+                self.showNext(d.pages.showNext);
+                self.nextUrlText(d.pages.nextUrlText);
+                self.nextUrl(d.pages.nextUrl);
+            }
           });
       };
     };
     $(document).ready(function(){
       ko.applyBindings(new viewModel());
       //$( "#minNumMovies" ).slider({ range: "min", value: 5, min: 0, max: 100, slide: function( event, ui ) { console.log("minNumMovies: "+ui.value); } });
-      $('.carousel').carousel();
+      //$('.carousel').carousel();
     });
