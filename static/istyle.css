@@ -13,14 +13,6 @@ body {
     background-image: radial-gradient(ellipse farthest-corner at center, #BBB8C2 0%, #6D6D70 100%);
 }
 
-
-.composerName {
-  cursor:pointer;
-}
-.recordingName {
-  cursor:pointer;
-}
-
 select {
     direction: rtl;
 }
@@ -36,7 +28,7 @@ th, td {
 }
 
 td a:link {
-    color: #0000A0;
+    color: #2222A0;
 }
 .summary.a:link {
     color: #0000A0;
@@ -47,4 +39,39 @@ td a:link {
 .pager {
     font-style: italic;
     font-size: 12pt;
+}
+
+a:link {
+    color: #2222A0;
+}
+
+#i-intro {
+    font-size: 12pt;
+}
+#i-imdb1a {
+    font-size: 24pt;
+    background-color:#b0c4de;
+    height: 100px;
+}
+#i-imdb1b {
+    font-size: 18pt;
+    background-color:#c4b0de;
+    height: 100px;
+}
+#i-2a {
+    font-size: 16pt;
+    background-color:#deb0c4;
+    height: 130px;
+    vertical-align:middle ;
+}
+#i-2b {
+    font-size: 18pt;
+    background-color:#a4c0ee;
+    height: 130px;
+    text-align: center;
+}
+#i-3 {
+    font-size: 12pt;
+    background-color:#ccccee;
+    border: 1px;
 }

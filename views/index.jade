@@ -39,6 +39,7 @@ block pagecontent
         div.row
           div.col-md-8
             br
+            include infog
             p.summary(data-bind="html: summary")
             table(width="85%",data-bind="visible: firstTimeHide")
               thead
@@ -77,7 +78,7 @@ block pagescript
       self.minNumVotes = ko.observable( (o.uminNumVotes===0) ? 2000 : o.uminNumVotes );
       self.minNumMovies = ko.observable( (o.uminNumMovies===0) ? 10 : o.uminNumMovies );
       self.directorNames = ko.observableArray();
-      self.summary = ko.observable("Who's the best movie director? Or better, which director has made the most films with the highest ratings? Let's ask the <a href='http://imdb.org'> Internet Movie Database </a> to find out the answer. Select a minumum number of votes and a minimum number of movies to see a listing of directors and the average rating of their films. Press the Action! button for the answer.");
+      self.summary = ko.observable("");
       self.firstTimeHide = ko.observable(false); // hide the table on first display
       //pagination stuff
       self.showPrev = ko.observable(false);
@@ -93,7 +94,7 @@ block pagescript
       // auto run if the URL has values // see below
       self.getBestPress = function() {
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
-          self.firstTimeHide(true);
+          self.firstTimeHide(true); $("#infog").remove();
           self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:""}]);
           self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies());
       };
