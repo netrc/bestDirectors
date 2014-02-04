@@ -7,7 +7,7 @@ var ms1,ms2,ms3,ms4;
 var nPerPage = 100;
 
 exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
-    console.log("enter: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
+    //console.log("enter: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
     ms1 = Date.now();
     var r = {};
     // collect all the movies and sum all the ratings for each director
@@ -37,7 +37,7 @@ exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
 
     if (! thisStart) thisStart = 0;
     if (! thisEnd) thisEnd = (ans.length>nPerPage) ? (nPerPage-1) : ans.length;
-    console.log("mid: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
+    //console.log("mid: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
     var pages = {};
     pages.prevUrl="", pages.prevUrlText="";
     pages.nextUrl="", pages.nextUrlText="";

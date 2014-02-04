@@ -1,3 +1,4 @@
+
 body {
     /* IE10 Consumer Preview */ 
     background-image: -ms-radial-gradient(center, ellipse farthest-corner, #BBB8C2 0%, #6D6D70 100%);
@@ -50,28 +51,45 @@ a:link {
 }
 #i-imdb1a {
     font-size: 24pt;
-    background-color:#b0c4de;
+    background-color:#CC8100;
     height: 100px;
+    text-align: center;
 }
 #i-imdb1b {
-    font-size: 18pt;
-    background-color:#c4b0de;
+    font-size: 24pt;
+    background-color:#83B297;
     height: 100px;
+    text-align: center;
+    vertical-align:middle ;
 }
 #i-2a {
     font-size: 16pt;
-    background-color:#deb0c4;
+    background-color:#AA33FF;
     height: 130px;
     vertical-align:middle ;
 }
 #i-2b {
     font-size: 18pt;
-    background-color:#a4c0ee;
+    background-color:#4DFFBD;
     height: 130px;
     text-align: center;
 }
 #i-3 {
+    font-size: 28pt;
+    background-color:#83B297;
+    border: 5px black;
+}
+#i-4 {
     font-size: 12pt;
     background-color:#ccccee;
-    border: 1px;
+    border: 5px black;
+}
+.info {
+    font-family: 'Droid Sans', sans-serif;
+}
+.infobig {
+    font-size: 16pt;
+}
+.infowhite {
+    color: white;
 }
