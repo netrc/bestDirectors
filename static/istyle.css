@@ -50,23 +50,28 @@ a:link {
     font-size: 12pt;
     background-color:#ccccee;
 }
-#i-imdb1a {
+#i-1a {
     font-size: 24pt;
     background-color:#CC8100;
     height: 100px;
     text-align: center;
+    display: inline-block;
+    vertical-align:middle ;
 }
-#i-imdb1b {
+#i-1b {
     font-size: 24pt;
     background-color:#83B297;
     height: 100px;
     text-align: center;
+    display: inline-block;
     vertical-align:middle ;
 }
 #i-2a {
-    font-size: 16pt;
+    font-size: 24pt;
     background-color:#AA33FF;
     height: 130px;
+    text-align: center;
+    display: inline-block;
     vertical-align:middle ;
 }
 #i-2b {
@@ -87,6 +92,9 @@ a:link {
 }
 .info {
     font-family: 'Droid Sans', sans-serif;
+    vertical-align:middle ;
+    position: relative;
+    top: 30%;
 }
 .infobig {
     font-size: 16pt;
