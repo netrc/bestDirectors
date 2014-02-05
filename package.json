@@ -9,7 +9,8 @@
     "express": "~3.2.4",
     "jade": "*",
     "request":"*",
-    "iconv-lite":"*"
+    "iconv-lite":"*",
+    "nodetime":"*"
   },
   "scripts": {
       "test": "node test.js"

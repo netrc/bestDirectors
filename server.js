@@ -3,6 +3,14 @@ var express = require('express');
 require('jade');
 var dr = require('./dr');
 
+
+if(process.env.NODETIME_ACCOUNT_KEY) {
+  require('nodetime').profile({
+    accountKey: process.env.NODETIME_ACCOUNT_KEY,
+    appName: 'Main'
+  });
+}
+
 var app = express();
 
 app.configure(function(){
