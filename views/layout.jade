@@ -55,21 +55,10 @@ html
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js")
     script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
-    script(src="https://code.jquery.com/ui/1.10.4/jquery-ui.js")
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js')
+    script(src="//code.jquery.com/ui/1.10.4/jquery-ui.js")
+    script(src='//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js')
+    script(src='https://apis.google.com/js/plusone.js')
 
 
     block pagescript
-    script(type="text/javascript").
-      window.___gcfg = {
-        lang: 'en-US'
-      };
 
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-      var popUpAbout = function() {
-        $('#aboutModal').modal();
-      };

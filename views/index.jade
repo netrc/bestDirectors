@@ -146,7 +146,13 @@ block pagescript
       return results[1] || 0;
     };
     $(document).ready(function(){
-      console.log("getP(minNumVotes): " + getParam('minNumVotes'));
       ko.applyBindings(new viewModel( {uminNumVotes:getParam('minNumVotes'),uminNumMovies:getParam('minNumMovies')} ));
       //$( "#minNumMovies" ).slider({ range: "min", value: 5, min: 0, max: 100, slide: function( event, ui ) { console.log("minNumMovies: "+ui.value); } });
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      window.___gcfg = {lang: 'en-US'};
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+      })();
     });
