@@ -102,3 +102,28 @@ a:link {
 .infowhite {
     color: white;
 }
+div.rCBox {
+    position: relative;
+    height: 21px;
+    width: 100px;
+    left: 0;
+    top: 0;
+    background-color: #eeeeee;
+    display: block;
+    margin:0;
+    padding:0;
+}
+div.rAvgBox {
+    position: absolute;
+    display: block;
+    height:21px;
+    background-color: #aabbcc;
+}
+div.rAvgLine {
+    position: absolute;
+height: 20px;
+width: 1px;
+left: 67%;
+top: 0;
+background-color: #553322;
+}
