@@ -53,6 +53,10 @@ block pagecontent
                     a(data-bind="text:dn, attr: {href: durl}",  target="_blank")
                   td(data-bind="text: numR")
                   td(data-bind="text: avgR")
+                  td
+                    div.rCBox
+                      div.rAvgBox(data-bind="style: { width: avgRPct}")
+                        //div.rAvgLine(data-bind="style: {left: $parent.totalAvg}")
         div.row
           div.col-md-1
           div.col-md-2
@@ -78,6 +82,7 @@ block pagescript
       self.minNumVotes = ko.observable( (o.uminNumVotes===0) ? 2000 : o.uminNumVotes );
       self.minNumMovies = ko.observable( (o.uminNumMovies===0) ? 10 : o.uminNumMovies );
       self.directorNames = ko.observableArray();
+      self.totalAvg = ko.observable();
       self.summary = ko.observable("");
       self.firstTimeHide = ko.observable(false); // hide the table on first display
       //pagination stuff
@@ -95,7 +100,7 @@ block pagescript
       self.getBestPress = function() {
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
           self.firstTimeHide(true); $("#infog").remove();
-          self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:""}]);
+          self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:"", avgRPct:""}]);
           self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies());
       };
       self.getBestNext = function() {
@@ -114,6 +119,7 @@ block pagescript
             var d = JSON.parse(s);
             //console.log("getBestPress d = " + d);
             self.summary( d.totalD + " directors made the list!<br>Total number of films: "+ d.totalN+ "  with an average rating of: " + d.totalAvg);
+            self.totalAvg( Math.round(d.totalAvg*10)+"%" );
             self.finaltext(d.queryMS+'ms');
             self.directorNames(d.ans);
             if (d.pages.showThis) {

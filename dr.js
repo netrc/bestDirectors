@@ -25,6 +25,7 @@ exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
     for ( var k in r ){
         if (r[k].numR < minNumMovies) continue; // skip if not enough movies
         r[k].avgR = (r[k].totalR / r[k].numR).toFixed(2);
+        r[k].avgRPct = Math.round(r[k].avgR*10)+"%";
         totalN += r[k].numR; totalR += r[k].totalR;
         r[k].dn = k + " (" + dfn[k] + ")";
         r[k].durl = "http://imdb.com/find?s=nm&q="+k;
