@@ -99,9 +99,10 @@ block pagescript
       // auto run if the URL has values // see below
       self.getBestPress = function() {
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
-          self.firstTimeHide(true); $("#infog").remove();
+          var urlEnd = '?minNumVotes='+self.minNumVotes()+'&minNumMovies='+self.minNumMovies();
+          history.pushState({x:""}, "", urlEnd);          self.firstTimeHide(true); $("#infog").remove();
           self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:"", avgRPct:""}]);
-          self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies());
+          self.getBest('/Directors/'+urlEnd);
       };
       self.getBestNext = function() {
         self.getBest('/Directors/?minNumVotes='+self.minNumVotes()+"&minNumMovies="+self.minNumMovies() + self.nextUrl());
