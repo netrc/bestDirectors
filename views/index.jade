@@ -44,12 +44,14 @@ block pagecontent
             table(width="85%",data-bind="visible: firstTimeHide")
               thead
                 tr
-                  th(width="40%") Director
-                  th(width="15%") # Movies
-                  th(width="20%") Avg # Votes
-                  th(width="25%") Avg Rating
+                  th(width="10%")
+                  th(width="38%") Director
+                  th(width="12%") # Movies
+                  th(width="18%") Avg # Votes
+                  th(width="22%") Avg Rating
               tbody(data-bind="foreach: directorNames")
                 tr
+                  td(data-bind='text: 1 + $index() + $parent.thisStart()')
                   td
                     a(data-bind="text:dn, attr: {href: durl}",  target="_blank")
                   td(data-bind="text: numR")
@@ -96,6 +98,7 @@ block pagescript
       self.nextUrlText = ko.observable("");
       self.prevUrl = ko.observable("");
       self.nextUrl = ko.observable("");
+      self.thisStart = ko.observable("");
       // in the footer; the milliseconds
       self.finaltext = ko.observable("");
       // auto run if the URL has values // see below
@@ -125,6 +128,8 @@ block pagescript
             self.totalAvg( Math.round(d.totalAvg*10)+"%" );
             self.finaltext(d.queryMS+'ms');
             self.directorNames(d.ans);
+            self.thisStart(Number(d.pages.thisStartIndex));
+            console.log("this start index: " + d.pages.thisStartIndex);
             if (d.pages.showThis) {
                 self.showThis(d.pages.showThis);
                 self.thisPageText(d.pages.thisPageText);

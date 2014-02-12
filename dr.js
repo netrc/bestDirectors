@@ -45,16 +45,16 @@ exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
     pages.prevUrl="", pages.prevUrlText="";
     pages.nextUrl="", pages.nextUrlText="";
     pages.showNext = false, pages.showPrev = false; pages.showThis = false;
-    pages.thisPageText="";
+    pages.thisPageText=""; pages.thisStartIndex= thisStart;
     if (ans.length > nPerPage) {
         pages.showThis = true;
-        pages.thisPageText= thisStart + " - " + thisEnd;
+        pages.thisPageText= (Number(thisStart)+1) + " - " + (Number(thisEnd)+1);
         var nextStart = thisEnd*1 + 1;
         if (nextStart<ans.length) { // no need to go further
           var nextEnd = thisEnd*1 + nPerPage*1;
           if (nextEnd > ans.length) nextEnd = ans.length;
           pages.showNext = true;
-          pages.nextUrlText = nextStart + " - " + nextEnd;
+          pages.nextUrlText = (nextStart+1) + " - " + (nextEnd+1);
           pages.nextUrl="&start=" + nextStart + "&end=" + nextEnd;
         }
     }
@@ -62,7 +62,7 @@ exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
         var prevStart = thisStart - nPerPage;
         var prevEnd = thisStart - 1;
         pages.showPrev = true;
-        pages.prevUrlText = prevStart + " - " + prevEnd;
+        pages.prevUrlText = (prevStart+1) + " - " + (prevEnd+1);
         pages.prevUrl="&start=" + prevStart + "&end=" + prevEnd;
     }
     return { pages:pages, ans:ans.slice(thisStart, (thisEnd*1+1)), totalN:totalN, totalAvg: (totalR/totalN).toFixed(2), totalD: ans.length, queryMS:(ms4-ms1) };
