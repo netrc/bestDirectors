@@ -44,14 +44,16 @@ block pagecontent
             table(width="85%",data-bind="visible: firstTimeHide")
               thead
                 tr
-                  th(width="50%") Director
-                  th(width="25%") # Movies
-                  th(width="25%") Rating
+                  th(width="40%") Director
+                  th(width="15%") # Movies
+                  th(width="20%") Avg # Votes
+                  th(width="25%") Avg Rating
               tbody(data-bind="foreach: directorNames")
                 tr
                   td
                     a(data-bind="text:dn, attr: {href: durl}",  target="_blank")
                   td(data-bind="text: numR")
+                  td(data-bind="text: avgV")
                   td(data-bind="text: avgR")
                   td
                     div.rCBox
@@ -101,7 +103,7 @@ block pagescript
           console.log("getBestPress:" + self.minNumVotes() + " uname:"+self.minNumMovies());
           var urlEnd = '?minNumVotes='+self.minNumVotes()+'&minNumMovies='+self.minNumMovies();
           history.pushState({x:""}, "", urlEnd);          self.firstTimeHide(true); $("#infog").remove();
-          self.directorNames( [{dn:"retrieving...", numR:"", avgR:"", durl:"", avgRPct:""}]);
+          self.directorNames( [{dn:"retrieving...", numR:"", avgV:"", avgR:"", durl:"", avgRPct:""}]);
           self.getBest('/Directors/'+urlEnd);
       };
       self.getBestNext = function() {
