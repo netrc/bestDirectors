@@ -6,6 +6,11 @@ var dfn = {};           // pre-calc total films for each director
 var ms1,ms2,ms3,ms4;
 var nPerPage = 100;
 
+exports.getDirector = function(name) {
+    return(dfn[name]);
+};
+
+
 exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
     //console.log("enter: thisStart:"+thisStart+"  thisEnd:"+thisEnd);
     ms1 = Date.now();
@@ -29,7 +34,7 @@ exports.getBest = function(minNumVotes, minNumMovies, thisStart, thisEnd) {
         r[k].avgRPct = Math.round(r[k].avgR*10)+"%";
         r[k].avgV = Math.round(r[k].totalV / r[k].numR);
         totalN += r[k].numR; totalR += r[k].totalR;
-        r[k].dn = k + " (" + dfn[k] + ")";
+        r[k].dn = k + " (" + dfn[k].length + ")";
         r[k].durl = "http://imdb.com/find?s=nm&q="+k;
         ans.push(r[k]);
     }
@@ -85,8 +90,8 @@ exports.initData = function( cb ) {
             console.log("drdata parsed length: " + drdata.length + " .. " + ((drdata.length==206194)?"ok":"WRONG!"));
             drdata.forEach(function(x){
                 var n = x.dN;
-                if (! dfn[n]) { dfn[n]=0; }
-                dfn[n]++;
+                if (! dfn[n]) { dfn[n]=[]; }
+                dfn[n].push(x);
             });
             console.log("finished pre-calc");
             return cb();
